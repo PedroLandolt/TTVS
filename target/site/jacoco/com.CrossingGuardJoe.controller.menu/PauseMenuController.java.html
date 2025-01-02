@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PauseMenuController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.controller.menu</a> &gt; <span class="el_source">PauseMenuController.java</span></div><h1>PauseMenuController.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.controller.menu;
+
+import com.CrossingGuardJoe.Game;
+import com.CrossingGuardJoe.controller.Controller;
+import com.CrossingGuardJoe.controller.Sounds;
+import com.CrossingGuardJoe.controller.SoundsController;
+import com.CrossingGuardJoe.gui.GUI;
+import com.CrossingGuardJoe.model.menu.PauseMenu;
+import com.CrossingGuardJoe.model.menu.StatsMenu;
+import com.CrossingGuardJoe.states.menu.StatsMenuState;
+
+import java.io.IOException;
+
+public class PauseMenuController extends Controller&lt;PauseMenu&gt; {
+    public PauseMenuController(PauseMenu model) {
+<span class="fc" id="L16">        super(model);</span>
+<span class="fc" id="L17">    }</span>
+
+    @Override
+    public void nextAction(Game game, GUI.ACTION action, long time) throws IOException {
+<span class="fc bfc" id="L21" title="All 4 branches covered.">        switch (action) {</span>
+            case UP:
+<span class="fc" id="L23">                SoundsController.getInstance().play(Sounds.SFX.SELECT);</span>
+<span class="fc" id="L24">                getModel().navigateUp();</span>
+<span class="fc" id="L25">                break;</span>
+            case DOWN:
+<span class="fc" id="L27">                SoundsController.getInstance().play(Sounds.SFX.SELECT);</span>
+<span class="fc" id="L28">                getModel().navigateDown();</span>
+<span class="fc" id="L29">                break;</span>
+            case SELECT:
+<span class="fc" id="L31">                SoundsController.getInstance().play(Sounds.SFX.ENTER);</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">                if (getModel().isSelectedResume()) {</span>
+<span class="fc" id="L33">                    SoundsController.getInstance().play(Sounds.SFX.GAMEBGM);</span>
+<span class="fc" id="L34">                    game.popState();</span>
+                }
+<span class="fc bfc" id="L36" title="All 2 branches covered.">                if (getModel().isSelectedStats()) {</span>
+<span class="fc" id="L37">                    game.setState(new StatsMenuState(new StatsMenu(</span>
+<span class="fc" id="L38">                                getModel().getCurrentGame().getJoe().getScore(),</span>
+<span class="fc" id="L39">                                getModel().getCurrentGame().getCurrentLevel(),</span>
+<span class="fc" id="L40">                                game.getHighestScore(),</span>
+<span class="fc" id="L41">                                game.getHighestLevel()</span>
+                                )
+                            )
+                    );
+                }
+<span class="fc bfc" id="L46" title="All 2 branches covered.">                if (getModel().isSelectedExit()) {</span>
+<span class="fc" id="L47">                    SoundsController.getInstance().stop(Sounds.SFX.GAMEBGM);</span>
+<span class="fc" id="L48">                    game.popState();</span>
+<span class="fc" id="L49">                    game.popState();</span>
+<span class="fc" id="L50">                    SoundsController.getInstance().play(Sounds.SFX.MENUBGM);</span>
+                }
+                break;
+            default:
+                break;
+        }
+<span class="fc" id="L56">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

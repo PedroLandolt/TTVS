@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Road.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.model.game</a> &gt; <span class="el_source">Road.java</span></div><h1>Road.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.model.game;
+
+import com.CrossingGuardJoe.model.game.elements.Car;
+import com.CrossingGuardJoe.model.game.elements.Joe;
+import com.CrossingGuardJoe.model.game.elements.Kid;
+
+import java.util.List;
+
+public class Road {
+    private Joe joe;
+    private List&lt;Kid&gt; kids;
+    private List&lt;Car&gt; cars;
+<span class="fc" id="L13">    private int currentLevel = 1;</span>
+<span class="fc" id="L14">    private boolean gameEnded = false;</span>
+
+    public boolean isGameEnded() {
+<span class="fc" id="L17">        return this.gameEnded;</span>
+    }
+
+<span class="fc" id="L20">    public int getCurrentLevel() { return this.currentLevel; }</span>
+
+    public void levelUp() {
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (this.currentLevel &lt; 10) {</span>
+<span class="fc" id="L24">            currentLevel++;</span>
+        }
+
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (this.currentLevel == 10) {</span>
+<span class="fc" id="L28">            gameEnded = true;</span>
+        }
+<span class="fc" id="L30">    }</span>
+
+<span class="fc" id="L32">    public Road() {</span>
+<span class="fc" id="L33">    }</span>
+
+<span class="fc" id="L35">    public Joe getJoe() { return joe; }</span>
+<span class="fc" id="L36">    public List&lt;Kid&gt; getKids() { return kids; }</span>
+<span class="fc" id="L37">    public List&lt;Car&gt; getCars() { return cars; }</span>
+
+<span class="fc" id="L39">    public void setJoe(Joe joe) { this.joe = joe; }</span>
+<span class="fc" id="L40">    public void setKids(List&lt;Kid&gt; kids) { this.kids = kids;}</span>
+<span class="fc" id="L41">    public void setCars(List&lt;Car&gt; cars) { this.cars = cars; }</span>
+    public void setKidsNextLevel(int numberKids) {
+<span class="fc" id="L43">        this.kids = new RoadBuilder().createKidsNextLevel(numberKids);</span>
+<span class="fc" id="L44">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

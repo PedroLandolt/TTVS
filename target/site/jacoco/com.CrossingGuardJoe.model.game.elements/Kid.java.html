@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Kid.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.model.game.elements</a> &gt; <span class="el_source">Kid.java</span></div><h1>Kid.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.model.game.elements;
+
+public class Kid extends Element {
+<span class="fc" id="L4">    private boolean walking = false;</span>
+<span class="fc" id="L5">    private boolean hit = false;</span>
+<span class="fc" id="L6">    private boolean selected = false;</span>
+<span class="fc" id="L7">    private boolean firstHalfOfMovement = true;</span>
+<span class="fc" id="L8">    private boolean deathCount = false;</span>
+<span class="fc" id="L9">    private boolean pass = false;</span>
+    private static final int POINTS = 100;
+<span class="fc" id="L11">    private boolean countToNextLevel = false;</span>
+<span class="fc" id="L12">    private int movesInQueueLeft = 0;</span>
+
+    public Kid(int x, int y) {
+<span class="fc" id="L15">        super(x, y);</span>
+<span class="fc" id="L16">    }</span>
+
+    public void setWalking() {
+<span class="fc" id="L19">        walking = true;</span>
+<span class="fc" id="L20">    }</span>
+
+    public void setNotWalking() {
+<span class="fc" id="L23">        this.walking = false;</span>
+<span class="fc" id="L24">        this.firstHalfOfMovement = true;</span>
+<span class="fc" id="L25">    }</span>
+
+    public boolean getWalkingState() {
+<span class="fc" id="L28">        return this.walking;</span>
+    }
+
+    public boolean isFirstHalfOfMovement() {
+<span class="fc" id="L32">        return this.firstHalfOfMovement;</span>
+    }
+
+    public void setFirstHalfOfMovement(boolean firstHalfOfMovement) {
+<span class="fc" id="L36">        this.firstHalfOfMovement = firstHalfOfMovement;</span>
+<span class="fc" id="L37">    }</span>
+
+    public boolean isSelected() {
+<span class="fc" id="L40">        return this.selected;</span>
+    }
+
+    public void setSelected() {
+<span class="fc" id="L44">        this.selected = true;</span>
+<span class="fc" id="L45">    }</span>
+
+    public void setNotSelected() {
+<span class="fc" id="L48">        this.selected = false;</span>
+<span class="fc" id="L49">    }</span>
+
+    public void isHit() {
+<span class="fc" id="L52">        this.hit = true;</span>
+<span class="fc" id="L53">        this.selected = false;</span>
+<span class="fc" id="L54">    }</span>
+
+<span class="fc" id="L56">    public boolean getIsHit() { return this.hit;}</span>
+
+    public void setDead() {
+<span class="fc" id="L59">        this.deathCount = true;</span>
+<span class="fc" id="L60">    }</span>
+
+    public boolean getDeathCounted() {
+<span class="fc" id="L63">        return this.deathCount;</span>
+    }
+
+    public void addMovesInQueueLeft(int x) {
+<span class="fc" id="L67">        this.movesInQueueLeft += x;</span>
+<span class="fc" id="L68">    }</span>
+
+    public int getMovesInQueueLeft() {
+<span class="fc" id="L71">        return this.movesInQueueLeft;</span>
+    }
+
+    public void setPass() {
+<span class="fc" id="L75">        this.pass = true;</span>
+<span class="fc" id="L76">    }</span>
+
+    public boolean getPass() {
+<span class="fc" id="L79">        return this.pass;</span>
+    }
+
+    public void setCountToNextLevel() {
+<span class="fc" id="L83">        this.countToNextLevel = true;</span>
+<span class="fc" id="L84">    }</span>
+
+    public boolean getCounted() {
+<span class="fc" id="L87">        return this.countToNextLevel;</span>
+    }
+
+    public int getPoints() {
+<span class="fc" id="L91">        return POINTS;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

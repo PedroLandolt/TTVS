@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InstructionsMenuViewer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.viewer.menu</a> &gt; <span class="el_source">InstructionsMenuViewer.java</span></div><h1>InstructionsMenuViewer.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.viewer.menu;
+
+import com.CrossingGuardJoe.gui.GUI;
+import com.CrossingGuardJoe.model.Position;
+import com.CrossingGuardJoe.model.menu.InstructionsMenu;
+import com.CrossingGuardJoe.viewer.Viewer;
+import com.CrossingGuardJoe.viewer.images.defined.*;
+import com.CrossingGuardJoe.viewer.images.generator.Shape;
+
+public class InstructionsMenuViewer extends Viewer&lt;InstructionsMenu&gt; implements MenuInformationDrawer {
+    public InstructionsMenuViewer(InstructionsMenu model) {
+<span class="fc" id="L12">        super(model);</span>
+<span class="fc" id="L13">    }</span>
+
+    @Override
+    public void drawElements(GUI gui) {
+<span class="fc" id="L17">        drawTitle(gui);</span>
+<span class="fc" id="L18">        drawInformation(gui);</span>
+
+<span class="fc" id="L20">        gui.drawImage(new Position(20, 50), Shape.RectangleFilledGenerator(920, 410, 'K', 2, '$'));</span>
+
+<span class="pc bpc" id="L22" title="1 of 6 branches missed.">        switch (getModel().getCurrentPage()) {</span>
+            case 1:
+<span class="fc" id="L24">                drawPageOne(gui);</span>
+<span class="fc" id="L25">                break;</span>
+            case 2:
+<span class="fc" id="L27">                drawPageTwo(gui);</span>
+<span class="fc" id="L28">                break;</span>
+            case 3:
+<span class="fc" id="L30">                drawPageThree(gui);</span>
+<span class="fc" id="L31">                break;</span>
+            case 4:
+<span class="fc" id="L33">                drawPageFour(gui);</span>
+<span class="fc" id="L34">                break;</span>
+            case 5:
+<span class="fc" id="L36">                drawPageFive(gui);</span>
+                break;
+        }
+<span class="fc" id="L39">    }</span>
+
+    @Override
+    public void drawTitle(GUI gui) {
+<span class="fc" id="L43">        gui.drawText(new Position(202, 17), &quot;Instructions&quot;, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L44">    }</span>
+
+    @Override
+    public void drawInformation(GUI gui) {
+<span class="fc" id="L48">        gui.drawImage(new Position(4, 4), ToolImages.getKeyEscImage());</span>
+
+<span class="fc" id="L50">        int PAGES_INI_X = 400;</span>
+<span class="fc" id="L51">        int PAGES_Y = 474;</span>
+
+<span class="fc" id="L53">        gui.drawImage(new Position(4, 4), ToolImages.getKeyEscImage());</span>
+
+        //text
+<span class="fc" id="L56">        gui.drawText(new Position(PAGES_INI_X, PAGES_Y), &quot;Page&quot;, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L57">        gui.drawText(new Position(PAGES_INI_X + 54, PAGES_Y), &quot;of&quot;, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L58">        gui.drawText(new Position(PAGES_INI_X + 74, PAGES_Y), getModel().getTotalPages(), &quot;#FFFFFF&quot;);</span>
+
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (getModel().getCurrentPage() == getModel().getTotalPages()) {</span>
+<span class="fc" id="L61">            gui.drawText(new Position(PAGES_INI_X + 40, PAGES_Y), getModel().getCurrentPage(), &quot;#D30000&quot;);</span>
+        } else {
+<span class="fc" id="L63">            gui.drawText(new Position(PAGES_INI_X + 40, PAGES_Y), getModel().getCurrentPage(), &quot;#FFFFFF&quot;);</span>
+        }
+<span class="fc" id="L65">    }</span>
+
+    private void drawPageOne(GUI gui) {
+        //TEXT
+<span class="fc" id="L69">        gui.drawText(new Position(50, 100), &quot;you are Joe&quot;, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L70">        gui.drawText(new Position(70, 120), &quot;a crossing guard&quot;, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L71">        gui.drawText(new Position(50, 400), &quot;click once to move&quot;, &quot;#FFFFFF&quot;);</span>
+
+        //JOE
+<span class="fc" id="L74">        int JOE_Y = 190;</span>
+<span class="fc" id="L75">        gui.drawImage(new Position(150, JOE_Y), JoeImages.getJoeStandImage());</span>
+<span class="fc" id="L76">        gui.drawImage(new Position(230, JOE_Y), JoeImages.getJoeWalkleftImage());</span>
+<span class="fc" id="L77">        gui.drawImage(new Position(310, JOE_Y), JoeImages.getJoeWalkrightImage());</span>
+
+        //KEY
+<span class="fc" id="L80">        int KEY_Y = 310;</span>
+<span class="fc" id="L81">        gui.drawImage(new Position(235, KEY_Y), ToolImages.getKeyLeftImage());</span>
+<span class="fc" id="L82">        gui.drawImage(new Position(315, KEY_Y), ToolImages.getKeyRightImage());</span>
+<span class="fc" id="L83">    }</span>
+
+    private void drawPageTwo(GUI gui) {
+        //TEXT
+<span class="fc" id="L87">        gui.drawText(new Position(50, 100), &quot;you will help&quot;, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L88">        gui.drawText(new Position(70, 120), &quot;the kids to cross the road&quot;, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L89">        gui.drawText(new Position(50, 400), &quot;click once to order&quot;, &quot;#FFFFFF&quot;);</span>
+
+        //JOE
+<span class="fc" id="L92">        int JOE_Y = 200;</span>
+<span class="fc" id="L93">        gui.drawImage(new Position(170, JOE_Y - 20), JoeImages.getJoeStopImage());</span>
+<span class="fc" id="L94">        gui.drawImage(new Position(290, JOE_Y - 20), JoeImages.getJoePassImage());</span>
+
+        //KID
+<span class="fc" id="L97">        gui.drawImage(new Position(200, JOE_Y + 20), KidImages.getKidStandImage());</span>
+<span class="fc" id="L98">        gui.drawImage(new Position(280, JOE_Y + 20), KidImages.getKidWalkImage());</span>
+
+        //KEY
+<span class="fc" id="L101">        int KEY_Y = 310;</span>
+<span class="fc" id="L102">        gui.drawImage(new Position(180, KEY_Y), ToolImages.getKeyUpImage());</span>
+<span class="fc" id="L103">        gui.drawImage(new Position(295, KEY_Y), ToolImages.getKeyDownImage());</span>
+<span class="fc" id="L104">    }</span>
+
+    private void drawPageThree(GUI gui) {
+        //TEXT
+<span class="fc" id="L108">        gui.drawText(new Position(50, 100), &quot;be careful&quot;, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L109">        gui.drawText(new Position(70, 120), &quot;with rude drivers&quot;, &quot;#FFFFFF&quot;);</span>
+
+        //CAR
+<span class="fc" id="L112">        int JOE_Y = 215;</span>
+<span class="fc" id="L113">        gui.drawImage(new Position(150, JOE_Y - 20), CarImage.getCarImage());</span>
+<span class="fc" id="L114">        gui.drawImage(new Position(280, JOE_Y - 20), CarImage.getCarImage());</span>
+
+        //KID
+<span class="fc" id="L117">        gui.drawImage(new Position(190, JOE_Y + 30), KidImages.getKidHitImage());</span>
+
+        //JOE
+<span class="fc" id="L120">        gui.drawImage(new Position(320, JOE_Y), JoeImages.getJoeHitrightImage());</span>
+<span class="fc" id="L121">    }</span>
+
+    private void drawPageFour(GUI gui) {
+        //TEXT
+<span class="fc" id="L125">        gui.drawText(new Position(50, 100), &quot;if you lose a kid&quot;, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L126">        gui.drawText(new Position(70, 120), &quot;you lose hp&quot;, &quot;#FFFFFF&quot;);</span>
+
+<span class="fc" id="L128">        int HP_BAR_Y = 230;</span>
+<span class="fc" id="L129">        gui.drawImage(new Position(199, HP_BAR_Y - 1), Shape.RectangleFilledGenerator(202, 39, ' ', 2, '$'));</span>
+<span class="fc" id="L130">        gui.drawImage(new Position(200, HP_BAR_Y), HUDImages.getHpBarSliceImage());</span>
+
+<span class="fc" id="L132">        int HP_iniX = 208;</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        for (int i = 0; i &lt; 3; i++) {</span>
+<span class="fc" id="L134">            gui.drawImage(new Position(HP_iniX, HP_BAR_Y + 4), HUDImages.getHPImage());</span>
+<span class="fc" id="L135">            HP_iniX += 25;</span>
+        }
+<span class="fc" id="L137">    }</span>
+
+    private void drawPageFive(GUI gui) {
+        //TEXT
+<span class="fc" id="L141">        gui.drawText(new Position(50, 100), &quot;try to get&quot;, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L142">        gui.drawText(new Position(70, 120), &quot;maximum score&quot;, &quot;#FFFFFF&quot;);</span>
+
+<span class="fc" id="L144">        int SCORE_BAR_X = 185;</span>
+<span class="fc" id="L145">        int SCORE_BAR_Y = 230;</span>
+
+<span class="fc" id="L147">        gui.drawImage(new Position(SCORE_BAR_X - 1, SCORE_BAR_Y - 1), Shape.RectangleFilledGenerator(266, 39, ' ', 2, '$'));</span>
+
+<span class="fc" id="L149">        gui.drawImage(new Position(SCORE_BAR_X, SCORE_BAR_Y), HUDImages.getScoreBarSliceImage());</span>
+<span class="fc" id="L150">        gui.drawText(new Position(SCORE_BAR_X + 90, SCORE_BAR_Y + 10), 2590, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L151">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

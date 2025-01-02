@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomizeMenuViewer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.viewer.menu</a> &gt; <span class="el_source">CustomizeMenuViewer.java</span></div><h1>CustomizeMenuViewer.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.viewer.menu;
+
+import com.CrossingGuardJoe.gui.GUI;
+import com.CrossingGuardJoe.model.Position;
+import com.CrossingGuardJoe.model.menu.CustomizeMenu;
+import com.CrossingGuardJoe.model.menu.Option;
+import com.CrossingGuardJoe.viewer.*;
+import com.CrossingGuardJoe.viewer.images.defined.ToolImages;
+import com.CrossingGuardJoe.viewer.images.generator.Shape;
+
+import java.util.List;
+
+public class CustomizeMenuViewer extends Viewer&lt;CustomizeMenu&gt; implements MenuInformationDrawer {
+<span class="fc" id="L14">    private final int SELECTION_BOX_WIDTH = 235;</span>
+<span class="fc" id="L15">    private final int SELECTION_BOX_HEIGHT = 300;</span>
+    public CustomizeMenuViewer(CustomizeMenu model) {
+<span class="fc" id="L17">        super(model);</span>
+<span class="fc" id="L18">    }</span>
+
+    @Override
+    public void drawElements(GUI gui) {
+<span class="fc" id="L22">        drawTitle(gui);</span>
+<span class="fc" id="L23">        drawInformation(gui);</span>
+<span class="fc" id="L24">        drawSelectionBox(gui);</span>
+
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        for (int i = 0; i &lt; getModel().getMenuLevels().size(); i++) {</span>
+
+<span class="fc" id="L28">            List&lt;Option&gt; levelOptions = getModel().getMenuLevels().get(i);</span>
+
+<span class="fc bfc" id="L30" title="All 2 branches covered.">            for (int j = 0; j &lt; levelOptions.size(); j++) {</span>
+
+<span class="fc" id="L32">                Option option = levelOptions.get(j);</span>
+<span class="fc" id="L33">                Position optionPosition = option.position();</span>
+
+                // Column selected box drawer (green)
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">                if (getModel().isSelectedJoeCustomize()) {</span>
+<span class="fc" id="L37">                    gui.drawImage(new Position(40, 70), Shape.RectangleFilledGenerator(SELECTION_BOX_WIDTH, SELECTION_BOX_HEIGHT, ' ', 2, 'G'));</span>
+                }
+<span class="nc bnc" id="L39" title="All 2 branches missed.">                else if (getModel().isSelectedKidsCustomize()) {</span>
+<span class="nc" id="L40">                    gui.drawImage(new Position(195, 70), Shape.RectangleFilledGenerator(SELECTION_BOX_WIDTH, SELECTION_BOX_HEIGHT, ' ', 2, 'G'));</span>
+                }
+<span class="nc bnc" id="L42" title="All 2 branches missed.">                else if (getModel().isSelectedCarsCustomize()) {</span>
+<span class="nc" id="L43">                    gui.drawImage(new Position(350, 70), Shape.RectangleFilledGenerator(SELECTION_BOX_WIDTH, SELECTION_BOX_HEIGHT, ' ', 2, 'G'));</span>
+                }
+
+                // Draw the options images (Joe, Kid and Car) and the text shadows (black)
+<span class="fc" id="L47">                gui.drawImage(optionPosition, option.image());</span>
+
+                // Draw the options text (white)
+<span class="pc bpc" id="L50" title="1 of 2 branches missed.">                if (j &gt; 0) {</span>
+<span class="nc" id="L51">                    gui.drawText(new Position(optionPosition.getX() - 1, optionPosition.getY() - 1),</span>
+<span class="nc" id="L52">                            option.name(), &quot;#FFFFFF&quot;);</span>
+                }
+
+                // Draw the selection arrow (green)
+<span class="fc bfc" id="L56" title="All 2 branches covered.">                if (getModel().isSelectedOption(i, j)) {</span>
+<span class="fc" id="L57">                    gui.drawImage(new Position(optionPosition.getX() - 30, optionPosition.getY()), ToolImages.getArrowRightImage());</span>
+                }
+            }
+        }
+
+<span class="fc" id="L62">        drawElementsColorSquare(gui);</span>
+<span class="fc" id="L63">        drawColorsPalette(gui);</span>
+<span class="fc" id="L64">        addColorMap(gui);</span>
+<span class="fc" id="L65">    }</span>
+
+    @Override
+    public void drawTitle(GUI gui) {
+<span class="fc" id="L69">        gui.drawText(new Position(180, 28), &quot;CUSTOMIZE YOUR GAME&quot;, &quot;#FFFFFF&quot;);</span>
+<span class="fc" id="L70">    }</span>
+
+    @Override
+    public void drawInformation(GUI gui) {
+<span class="fc" id="L74">        gui.drawImage(new Position(4, 4), ToolImages.getKeyEscImage());</span>
+<span class="fc" id="L75">    }</span>
+
+    private void drawSelectionBox(GUI gui) {
+<span class="fc" id="L78">        gui.drawImage(new Position(40, 70), Shape.RectangleFilledGenerator(SELECTION_BOX_WIDTH, SELECTION_BOX_HEIGHT, 'K', 2, '$'));</span>
+<span class="fc" id="L79">        gui.drawImage(new Position(195, 70), Shape.RectangleFilledGenerator(SELECTION_BOX_WIDTH, SELECTION_BOX_HEIGHT, 'K', 2, '$'));</span>
+<span class="fc" id="L80">        gui.drawImage(new Position(350, 70), Shape.RectangleFilledGenerator(SELECTION_BOX_WIDTH, SELECTION_BOX_HEIGHT, 'K', 2, '$'));</span>
+<span class="fc" id="L81">    }</span>
+
+    private void drawElementsColorSquare(GUI gui) {
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">        for (Option colorSquare : getModel().getDefinedColors()) {</span>
+<span class="nc" id="L85">            gui.drawImage(colorSquare.position(), colorSquare.image());</span>
+<span class="nc" id="L86">        }</span>
+<span class="fc" id="L87">    }</span>
+
+    private void drawColorsPalette(GUI gui) {
+<span class="fc" id="L90">        int initialXBoard = 52;</span>
+<span class="fc" id="L91">        int iniitialXFill = 105;</span>
+
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        for (Color color : getModel().getColorPaletteMenu().getColorPalette()) {</span>
+<span class="fc" id="L94">            gui.setColorHexaCode(color.getColorHexCode());</span>
+<span class="fc" id="L95">            gui.fillRectangle(new Position(iniitialXFill, 426), 25, 30);</span>
+<span class="fc" id="L96">            gui.drawImage(new Position(initialXBoard, 426), Shape.RectangleFilledGenerator(25, 30, ' ', 1, '$'));</span>
+
+<span class="fc" id="L98">            initialXBoard += 15;</span>
+<span class="fc" id="L99">            iniitialXFill += 30;</span>
+<span class="fc" id="L100">        }</span>
+
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (getModel().isColorPaletteSelected()) {</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">            for (int i = 0; i &lt; getModel().getColorPaletteMenu().getColorPalette().size(); i++) {</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">                if (getModel().getColorPaletteMenu().isColorSelected(i)) {</span>
+<span class="fc" id="L105">                    gui.drawImage(new Position(15 * i + 55, 405), ToolImages.getArrowDownImage());</span>
+                }
+            }
+        }
+<span class="fc" id="L109">    }</span>
+
+    private void addColorMap(GUI gui) {
+<span class="fc" id="L112">        char oldColor = getModel().getOldColor();</span>
+<span class="fc" id="L113">        char newColor = getModel().getNewColor();</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">        if (oldColor != '\uFFFF') {</span>
+<span class="fc" id="L115">            gui.addColorMapping(oldColor, newColor);</span>
+        }
+<span class="fc" id="L117">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

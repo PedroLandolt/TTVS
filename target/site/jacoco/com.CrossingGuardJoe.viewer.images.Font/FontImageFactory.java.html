@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FontImageFactory.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.viewer.images.Font</a> &gt; <span class="el_source">FontImageFactory.java</span></div><h1>FontImageFactory.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.viewer.images.Font;
+
+public class FontImageFactory {
+<span class="fc" id="L4">    public FontImageFactory() {}</span>
+
+    public String[] getImageRepresentation(Object input) {
+<span class="fc bfc" id="L7" title="All 2 branches covered.">        if (input instanceof String) {</span>
+<span class="fc" id="L8">            return getTextImage((String) input);</span>
+<span class="pc bpc" id="L9" title="2 of 6 branches missed.">        } else if (input instanceof Integer || input instanceof Long || input instanceof Short) {</span>
+<span class="fc" id="L10">            return getNumberImage((int) input);</span>
+        } else {
+<span class="fc" id="L12">            throw new IllegalArgumentException(&quot;Unsupported input type&quot;);</span>
+        }
+    }
+
+    private String[] getTextImage(String text) {
+<span class="fc" id="L17">        StringBuilder[] result = new StringBuilder[16];</span>
+
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        for (int i = 0; i &lt; result.length; i++) {</span>
+<span class="fc" id="L20">            result[i] = new StringBuilder();</span>
+        }
+
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        for (int i = 0; i &lt; text.length(); i++) {</span>
+<span class="fc" id="L24">            char character = text.charAt(i);</span>
+            String[] characterToAppend;
+<span class="fc bfc" id="L26" title="All 2 branches covered.">            if (character == ' ') {</span>
+<span class="fc" id="L27">                characterToAppend = FontImages.getSpaceImage();</span>
+            } else {
+<span class="fc" id="L29">                characterToAppend = new String[16];</span>
+<span class="fc" id="L30">                int characterIndex = getAlphabetIndex(character);</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">                for (int j = characterIndex * 16; j &lt; (characterIndex + 1) * 16; j++) {</span>
+<span class="fc" id="L32">                    String line = FontImages.getAlphabetImage()[j % FontImages.getAlphabetImage().length];</span>
+<span class="fc" id="L33">                    characterToAppend[j - characterIndex * 16] = line;</span>
+                }
+            }
+
+<span class="fc bfc" id="L37" title="All 2 branches covered.">            for (int j = 0; j &lt; characterToAppend.length; j++) {</span>
+<span class="fc" id="L38">                result[j].append(characterToAppend[j]);</span>
+            }
+        }
+
+<span class="fc" id="L42">        String[] output = new String[result.length];</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        for (int i = 0; i &lt; result.length; i++) {</span>
+<span class="fc" id="L44">            output[i] = result[i].toString();</span>
+        }
+
+<span class="fc" id="L47">        return output;</span>
+    }
+
+    private String[] getNumberImage(int number) {
+<span class="fc" id="L51">        String numberString = Integer.toString(number);</span>
+
+<span class="fc" id="L53">        StringBuilder[] result = new StringBuilder[16];</span>
+
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        for (int i = 0; i &lt; result.length; i++) {</span>
+<span class="fc" id="L56">            result[i] = new StringBuilder();</span>
+        }
+
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        for (int i = 0; i &lt; numberString.length(); i++) {</span>
+<span class="fc" id="L60">            char character = numberString.charAt(i);</span>
+            String[] characterToAppend;
+
+<span class="fc" id="L63">            characterToAppend = new String[16];</span>
+<span class="fc" id="L64">            int characterIndex = Character.digit(character, 10);</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">            for (int j = characterIndex * 16; j &lt; (characterIndex + 1) * 16; j++) {</span>
+<span class="fc" id="L66">                String line = FontImages.getNumbersImage()[j % FontImages.getNumbersImage().length];</span>
+<span class="fc" id="L67">                characterToAppend[j - characterIndex * 16] = line;</span>
+            }
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            for (int j = 0; j &lt; characterToAppend.length; j++) {</span>
+<span class="fc" id="L71">                result[j].append(characterToAppend[j]);</span>
+            }
+        }
+
+<span class="fc" id="L75">        String[] output = new String[result.length];</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        for (int i = 0; i &lt; result.length; i++) {</span>
+<span class="fc" id="L77">            output[i] = result[i].toString();</span>
+        }
+
+<span class="fc" id="L80">        return output;</span>
+    }
+
+    private int getAlphabetIndex(char c) {
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (Character.isLetter(c)) {</span>
+<span class="fc" id="L85">            c = Character.toUpperCase(c);</span>
+        }
+<span class="fc" id="L87">        return c - 'A';</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

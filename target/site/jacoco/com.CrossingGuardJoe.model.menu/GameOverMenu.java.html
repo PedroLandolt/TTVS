@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GameOverMenu.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.model.menu</a> &gt; <span class="el_source">GameOverMenu.java</span></div><h1>GameOverMenu.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.model.menu;
+
+import com.CrossingGuardJoe.model.Position;
+import com.CrossingGuardJoe.model.game.Road;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class GameOverMenu implements MenuNavigator {
+    private final boolean isWin;
+    private final Road currentGame;
+    private final List&lt;Option&gt; options;
+<span class="fc" id="L13">    private int optionSelected = 0;</span>
+
+<span class="fc" id="L15">    public GameOverMenu(boolean isWin, Road currentGame) {</span>
+<span class="fc" id="L16">        this.isWin = isWin;</span>
+<span class="fc" id="L17">        this.currentGame = currentGame;</span>
+<span class="fc" id="L18">        this.options = Arrays.asList(</span>
+                new Option(&quot;Stats&quot;, new Position(232, 270), null),
+                new Option(&quot;Exit&quot;, new Position(236, 310), null)
+        );
+<span class="fc" id="L22">    }</span>
+
+    @Override
+    public void navigateUp() {
+<span class="fc" id="L26">        optionSelected = (optionSelected - 1 + options.size()) % options.size();</span>
+<span class="fc" id="L27">    }</span>
+
+    @Override
+    public void navigateDown() {
+<span class="fc" id="L31">        optionSelected = (optionSelected + 1) % options.size();</span>
+<span class="fc" id="L32">    }</span>
+
+    public Option getOption(int i) {
+<span class="fc" id="L35">        return options.get(i);</span>
+    }
+
+    public int getNumberOptions() {
+<span class="fc" id="L39">        return options.size();</span>
+    }
+
+    public boolean isSelectedOption(int index) {
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        return optionSelected == index;</span>
+    }
+
+<span class="fc" id="L46">    public boolean isSelectedStats() { return isSelectedOption(0); }</span>
+
+<span class="fc" id="L48">    public boolean isSelectedExit() { return isSelectedOption(1); }</span>
+
+    public boolean isWin() {
+<span class="fc" id="L51">        return isWin;</span>
+    }
+
+    public Road getCurrentGame() {
+<span class="fc" id="L55">        return currentGame;</span>
+    }
+
+    public int getOptionSelected() {
+<span class="fc" id="L59">        return this.optionSelected;</span>
+    }
+
+    @Override
+<span class="fc" id="L63">    public void navigateRight() {}</span>
+
+    @Override
+<span class="fc" id="L66">    public void navigateLeft() {}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

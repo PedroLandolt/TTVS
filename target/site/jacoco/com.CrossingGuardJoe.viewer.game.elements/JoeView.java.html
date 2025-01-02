@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JoeView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.viewer.game.elements</a> &gt; <span class="el_source">JoeView.java</span></div><h1>JoeView.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.viewer.game.elements;
+
+import com.CrossingGuardJoe.gui.GUI;
+import com.CrossingGuardJoe.model.game.elements.Joe;
+import com.CrossingGuardJoe.viewer.images.defined.JoeImages;
+
+<span class="fc" id="L7">public class JoeView extends ElementViewer&lt;Joe&gt; {</span>
+    @Override
+    public void draw(Joe joe, GUI gui) {
+<span class="fc bfc" id="L10" title="All 2 branches covered.">        if (joe.getIsHit()) {</span>
+<span class="fc bfc" id="L11" title="All 2 branches covered.">            if (joe.getHitLeft()) {</span>
+<span class="fc" id="L12">                gui.drawImage(joe.getPosition(), JoeImages.getJoeHitleftImage());</span>
+            } else {
+<span class="fc" id="L14">                gui.drawImage(joe.getPosition(), JoeImages.getJoeHitrightImage());</span>
+            }
+<span class="fc" id="L16">            joe.isNotHit();</span>
+        }
+<span class="fc bfc" id="L18" title="All 2 branches covered.">        else if (joe.getIsWalkingState()) {</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">            if (joe.isFirstHalfOfMovement()) {</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">                if (joe.getIsWalkingToLeft()) {</span>
+<span class="fc" id="L21">                    gui.drawImage(joe.getPosition(), JoeImages.getJoeWalkleftImage());</span>
+                } else {
+<span class="fc" id="L23">                    gui.drawImage(joe.getPosition(), JoeImages.getJoeWalkrightImage());</span>
+                }
+            }
+            else {
+<span class="fc" id="L27">                gui.drawImage(joe.getPosition(), JoeImages.getJoeWalksecondhalfImage());</span>
+            }
+<span class="fc bfc" id="L29" title="All 2 branches covered.">            joe.setFirstHalfOfMovement(!joe.isFirstHalfOfMovement());</span>
+        }
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        else if (joe.getIsRaisingStopSign()) {</span>
+<span class="fc" id="L32">            gui.drawImage(joe.getPosition(), JoeImages.getJoeStopImage());</span>
+        }
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        else if (joe.getIsPassSign()) {</span>
+<span class="fc" id="L35">            gui.drawImage(joe.getPosition(), JoeImages.getJoePassImage());</span>
+        }
+        else {
+<span class="fc" id="L38">            gui.drawImage(joe.getPosition(), JoeImages.getJoeStandImage());</span>
+        }
+<span class="fc" id="L40">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

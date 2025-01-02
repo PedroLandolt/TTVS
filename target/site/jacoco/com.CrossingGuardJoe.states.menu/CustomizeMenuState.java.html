@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomizeMenuState.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.states.menu</a> &gt; <span class="el_source">CustomizeMenuState.java</span></div><h1>CustomizeMenuState.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.states.menu;
+
+import com.CrossingGuardJoe.controller.Controller;
+import com.CrossingGuardJoe.controller.menu.CustomizeMenuController;
+import com.CrossingGuardJoe.model.menu.CustomizeMenu;
+import com.CrossingGuardJoe.states.State;
+import com.CrossingGuardJoe.viewer.Viewer;
+import com.CrossingGuardJoe.viewer.menu.CustomizeMenuViewer;
+
+public class CustomizeMenuState extends State&lt;CustomizeMenu&gt; {
+    public CustomizeMenuState(CustomizeMenu model) {
+<span class="fc" id="L12">        super(model);</span>
+<span class="fc" id="L13">    }</span>
+
+    @Override
+    public Controller&lt;CustomizeMenu&gt; getController() {
+<span class="fc" id="L17">        return new CustomizeMenuController(getModel());</span>
+    }
+
+    @Override
+    public Viewer&lt;CustomizeMenu&gt; getViewer() {
+<span class="fc" id="L22">        return new CustomizeMenuViewer(getModel());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

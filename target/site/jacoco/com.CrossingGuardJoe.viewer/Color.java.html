@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Color.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.viewer</a> &gt; <span class="el_source">Color.java</span></div><h1>Color.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.viewer;
+
+<span class="fc" id="L3">public enum Color {</span>
+
+<span class="fc" id="L5">    BLACK(&quot;#000000&quot;, '$'),</span>
+<span class="fc" id="L6">    DARK_GREY(&quot;#3D3638&quot;, 'L'),</span>
+<span class="fc" id="L7">    BACKGROUND(&quot;#7F7976&quot;, 'A'),</span>
+<span class="fc" id="L8">    LIGHT_GREY(&quot;#C0BBB1&quot;, 'K'),</span>
+<span class="fc" id="L9">    WHITE(&quot;#FFFFFF&quot;, 'W'),</span>
+<span class="fc" id="L10">    SKIN(&quot;#FFEBB2&quot;, '%'),</span>
+<span class="fc" id="L11">    SKIN2(&quot;#FFCA8E&quot;, '&gt;'),</span>
+<span class="fc" id="L12">    ORANGE(&quot;#F0922D&quot;, '+'),</span>
+<span class="fc" id="L13">    RED(&quot;#FF5451&quot;, '&amp;'),</span>
+<span class="fc" id="L14">    RED2(&quot;#FF0000&quot;, 'R'),</span>
+<span class="fc" id="L15">    ORANGE2(&quot;#F36849&quot;, 'O'),</span>
+<span class="fc" id="L16">    ROASTED_YELLOW(&quot;#8E6E43&quot;, '@'),</span>
+<span class="fc" id="L17">    YELLOW2(&quot;#F6D756&quot;, '&lt;'),</span>
+<span class="fc" id="L18">    YELLOW(&quot;#FFDC1C&quot;, ')'),</span>
+<span class="fc" id="L19">    YELLOW3(&quot;#FFDB00&quot;, 'q'),</span>
+<span class="fc" id="L20">    GREEN(&quot;#BAF11C&quot;, 'G'),</span>
+<span class="fc" id="L21">    GREEN3(&quot;#66B032&quot;, 'u'),</span>
+<span class="fc" id="L22">    GREEN2(&quot;#6C9772&quot;, 'g'),</span>
+<span class="fc" id="L23">    DARK_GREEN(&quot;#0E3B2C&quot;, 'v'),</span>
+<span class="fc" id="L24">    CYAN(&quot;#36CDFF&quot;, '='),</span>
+<span class="fc" id="L25">    BLUE(&quot;#447296&quot;, '('),</span>
+<span class="fc" id="L26">    BLUE2(&quot;#4D9CFD&quot;, '!'),</span>
+<span class="fc" id="L27">    BLUE3(&quot;#368CFF&quot;, '~'),</span>
+<span class="fc" id="L28">    DARK_BLUE(&quot;#193364&quot;, 'B'),</span>
+<span class="fc" id="L29">    BROWN(&quot;#601E00&quot;, '*'),</span>
+<span class="fc" id="L30">    PURPLE(&quot;#9E0CFF&quot;, '\''),</span>
+<span class="fc" id="L31">    PINK(&quot;#F85DC6&quot;, 'P');</span>
+
+    private final String colorHexCode;
+    private final char character;
+
+<span class="fc" id="L36">    Color(String colorHexCode, char character) {</span>
+<span class="fc" id="L37">        this.colorHexCode = colorHexCode;</span>
+<span class="fc" id="L38">        this.character = character;</span>
+<span class="fc" id="L39">    }</span>
+
+    public String getColorHexCode() {
+<span class="fc" id="L42">        return this.colorHexCode;</span>
+    }
+
+    public char getCharacter() {
+<span class="fc" id="L46">        return this.character;</span>
+    }
+
+    public static Color getColor(char character) {
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        for (Color color : Color.values()) {</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">            if (color.getCharacter() == character) {</span>
+<span class="fc" id="L52">                return color;</span>
+            }
+        }
+<span class="fc" id="L55">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

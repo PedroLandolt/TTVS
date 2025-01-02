@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JoeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.controller.game.elements</a> &gt; <span class="el_source">JoeController.java</span></div><h1>JoeController.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.controller.game.elements;
+
+import com.CrossingGuardJoe.controller.game.GameController;
+import com.CrossingGuardJoe.controller.Sounds;
+import com.CrossingGuardJoe.controller.SoundsController;
+import com.CrossingGuardJoe.gui.GUI;
+import com.CrossingGuardJoe.model.Position;
+import com.CrossingGuardJoe.model.game.Road;
+import com.CrossingGuardJoe.Game;
+import com.CrossingGuardJoe.model.game.elements.Car;
+import com.CrossingGuardJoe.model.game.elements.Joe;
+
+import java.util.List;
+
+import static com.CrossingGuardJoe.controller.game.AuxCheckRange.isInRangeLeftCarJoe;
+import static com.CrossingGuardJoe.controller.game.AuxCheckRange.isInRangeRightCarJoe;
+
+
+public class JoeController extends GameController {
+<span class="fc" id="L20">    private GUI.ACTION lastAction = GUI.ACTION.NONE;</span>
+    private static final int JOE_MIN_X_DISTANCE = 50;
+    private static final int JOE_MAX_X_DISTANCE = 414;
+    private static final int JOE_STEP = 6;
+    private static final int JOE_AFTER_HIT = 10;
+
+    public JoeController(Road road) {
+<span class="fc" id="L27">        super(road);</span>
+<span class="fc" id="L28">    }</span>
+
+    private void moveJoe(int x, char direction) {
+<span class="fc" id="L31">        Position newPosition = new Position(getModel().getJoe().getPosition().getX() + x,</span>
+<span class="fc" id="L32">                getModel().getJoe().getPosition().getY());</span>
+
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if (canGoThrough(newPosition)) {</span>
+<span class="fc" id="L35">            JoeAction(newPosition, direction);</span>
+        } else {
+<span class="nc" id="L37">            setLastActionNone();</span>
+<span class="nc" id="L38">            joeNotWalking();</span>
+        }
+<span class="fc" id="L40">    }</span>
+
+    public void moveJoeLeft() {
+<span class="fc" id="L43">        moveJoe(-JOE_STEP, 'l');</span>
+<span class="fc" id="L44">    }</span>
+
+    public void moveJoeRight() {
+<span class="fc" id="L47">        moveJoe(JOE_STEP, 'r');</span>
+<span class="fc" id="L48">    }</span>
+
+    public void moveJoeLeftHit() {
+<span class="fc" id="L51">        setLastActionNone();</span>
+<span class="fc" id="L52">        Joe joe = getModel().getJoe();</span>
+<span class="fc" id="L53">        joe.setPosition(new Position(joe.getPosition().getX() - JOE_AFTER_HIT, joe.getPosition().getY()));</span>
+<span class="fc" id="L54">        joe.countHitPoints();</span>
+<span class="fc" id="L55">        SoundsController.getInstance().play(Sounds.SFX.JOEHIT);</span>
+<span class="fc" id="L56">    }</span>
+
+    public void moveJoeRightHit() {
+<span class="fc" id="L59">        setLastActionNone();</span>
+<span class="fc" id="L60">        Joe joe = getModel().getJoe();</span>
+<span class="fc" id="L61">        joe.setPosition(new Position(joe.getPosition().getX() + JOE_AFTER_HIT, joe.getPosition().getY()));</span>
+<span class="fc" id="L62">        joe.countHitPoints();</span>
+<span class="fc" id="L63">        SoundsController.getInstance().play(Sounds.SFX.JOEHIT);</span>
+<span class="fc" id="L64">    }</span>
+
+    public void joePassSign() {
+<span class="fc" id="L67">        JoeAction(getModel().getJoe().getPosition(), 'p');</span>
+<span class="fc" id="L68">    }</span>
+
+    public void joeStopSign() {
+<span class="fc" id="L71">        JoeAction(getModel().getJoe().getPosition(), 's');</span>
+<span class="fc" id="L72">    }</span>
+
+    public void JoeAction(Position position, char passOrStop) {
+<span class="pc bpc" id="L75" title="1 of 5 branches missed.">        switch (passOrStop) {</span>
+            case 'p':
+<span class="fc" id="L77">                getModel().getJoe().startRaisingPassSign();</span>
+<span class="fc" id="L78">                break;</span>
+            case 's':
+<span class="fc" id="L80">                getModel().getJoe().startRaisingStopSign();</span>
+<span class="fc" id="L81">                break;</span>
+            case 'l':
+<span class="fc" id="L83">                getModel().getJoe().setPosition(position);</span>
+<span class="fc" id="L84">                getModel().getJoe().startWalkingToLeft();</span>
+<span class="fc" id="L85">                break;</span>
+            case 'r':
+<span class="fc" id="L87">                getModel().getJoe().setPosition(position);</span>
+<span class="fc" id="L88">                getModel().getJoe().startWalkingToRight();</span>
+                break;
+        }
+<span class="fc" id="L91">    }</span>
+
+    public void joeNotWalking() {
+<span class="fc" id="L94">        getModel().getJoe().stopWalking();</span>
+<span class="fc" id="L95">    }</span>
+
+    private boolean canGoThrough(Position position) {
+<span class="fc bfc" id="L98" title="All 4 branches covered.">        return (position.getX() &gt;= JOE_MIN_X_DISTANCE &amp;&amp; position.getX() &lt;= JOE_MAX_X_DISTANCE);</span>
+    }
+
+    private void setLastActionNone() {
+<span class="fc" id="L102">        this.lastAction = GUI.ACTION.NONE;</span>
+<span class="fc" id="L103">    }</span>
+
+    @Override
+    public void nextAction(Game game, GUI.ACTION action, long time) {
+<span class="fc bfc" id="L107" title="All 8 branches covered.">        if ((action == GUI.ACTION.LEFT &amp;&amp; lastAction == GUI.ACTION.RIGHT) || (action == GUI.ACTION.RIGHT &amp;&amp; lastAction == GUI.ACTION.LEFT)) {</span>
+<span class="fc" id="L108">            setLastActionNone();</span>
+        }
+
+<span class="pc bpc" id="L111" title="1 of 4 branches missed.">        else if (!action.equals(lastAction) &amp;&amp; action != GUI.ACTION.NONE) {</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">            if (action == GUI.ACTION.DOWN) {</span>
+<span class="fc" id="L113">                SoundsController.playRandom(Sounds.SFX.JOEPASS1, Sounds.SFX.JOEPASS2);</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">            } else if (action == GUI.ACTION.UP) {</span>
+<span class="fc" id="L115">                SoundsController.getInstance().play(Sounds.SFX.JOESTOP);</span>
+            }
+<span class="fc" id="L117">            lastAction = action;</span>
+        }
+
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        if (lastAction == GUI.ACTION.LEFT) moveJoeLeft();</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (lastAction == GUI.ACTION.RIGHT) moveJoeRight();</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (lastAction == GUI.ACTION.UP) joeStopSign();</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        if (lastAction == GUI.ACTION.DOWN) joePassSign();</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        if (lastAction == GUI.ACTION.NONE) joeNotWalking();</span>
+
+<span class="fc" id="L126">        checkCollisions();</span>
+<span class="fc" id="L127">    }</span>
+
+    public void checkCollisions(){
+<span class="fc" id="L130">        List&lt;Car&gt; cars = getModel().getCars();</span>
+<span class="fc" id="L131">        Joe joe = getModel().getJoe();</span>
+
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        for (Car car : cars) {</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">            if (isInRangeLeftCarJoe(car, joe)) {</span>
+<span class="fc" id="L135">                joe.isHitLeft();</span>
+<span class="fc" id="L136">                moveJoeLeftHit();</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">            } else if (isInRangeRightCarJoe(car, joe)) {</span>
+<span class="fc" id="L138">                joe.isHitRight();</span>
+<span class="fc" id="L139">                moveJoeRightHit();</span>
+            }
+<span class="fc" id="L141">        }</span>
+<span class="fc" id="L142">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

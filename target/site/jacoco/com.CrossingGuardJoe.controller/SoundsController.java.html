@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SoundsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.controller</a> &gt; <span class="el_source">SoundsController.java</span></div><h1>SoundsController.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.controller;
+
+import java.util.Random;
+
+import static com.CrossingGuardJoe.controller.Sounds.SFX;
+
+public class SoundsController {
+    private final Sounds menuBgm, gameBgm, customizeBgm, instructionsBgm;
+    private final Sounds select, enter, flipPage;
+    private final Sounds levelUp;
+    private final Sounds joePass1, joePass2, joeStop, joeHit;
+    private final Sounds kidWalk1, kidStop1, kidStop2, kidHit, kidScore;
+    private final Sounds carBreak;
+    private final Sounds gameOver, victoryBgm;
+    private static final float defaultVolume = 0.5f;
+    private static SoundsController soundsController;
+
+<span class="fc" id="L18">    private SoundsController() {</span>
+<span class="fc" id="L19">        menuBgm = new Sounds(&quot;sounds/bgm/MENUBGM.wav&quot;);</span>
+<span class="fc" id="L20">        gameBgm = new Sounds(&quot;sounds/bgm/GAMEBGM.wav&quot;);</span>
+<span class="fc" id="L21">        customizeBgm = new Sounds(&quot;sounds/bgm/CUSTOMIZEBGM.wav&quot;);</span>
+<span class="fc" id="L22">        instructionsBgm = new Sounds(&quot;sounds/bgm/INSTRUCTIONSBGM.wav&quot;);</span>
+
+<span class="fc" id="L24">        select = new Sounds(&quot;sounds/menu/SELECT.wav&quot;);</span>
+<span class="fc" id="L25">        enter = new Sounds(&quot;sounds/menu/ENTER.wav&quot;);</span>
+<span class="fc" id="L26">        flipPage = new Sounds(&quot;sounds/menu/FLIPPAGE.wav&quot;);</span>
+
+<span class="fc" id="L28">        levelUp = new Sounds(&quot;sounds/game/LEVELUP.wav&quot;);</span>
+
+<span class="fc" id="L30">        joePass1 = new Sounds(&quot;sounds/game/joe/JOEPASS1.wav&quot;);</span>
+<span class="fc" id="L31">        joePass2 = new Sounds(&quot;sounds/game/joe/JOEPASS2.wav&quot;);</span>
+<span class="fc" id="L32">        joeStop = new Sounds(&quot;sounds/game/joe/JOESTOP.wav&quot;);</span>
+<span class="fc" id="L33">        joeHit = new Sounds(&quot;sounds/game/joe/JOEHIT.wav&quot;);</span>
+
+<span class="fc" id="L35">        kidWalk1 = new Sounds(&quot;sounds/game/kid/KIDWALK1.wav&quot;);</span>
+<span class="fc" id="L36">        kidStop1 = new Sounds(&quot;sounds/game/kid/KIDSTOP1.wav&quot;);</span>
+<span class="fc" id="L37">        kidStop2 = new Sounds(&quot;sounds/game/kid/KIDSTOP2.wav&quot;);</span>
+<span class="fc" id="L38">        kidHit = new Sounds(&quot;sounds/game/kid/KIDHIT.wav&quot;);</span>
+<span class="fc" id="L39">        kidScore = new Sounds(&quot;sounds/game/kid/KIDSCORE.wav&quot;);</span>
+
+<span class="fc" id="L41">        carBreak = new Sounds(&quot;sounds/game/car/CARBREAK.wav&quot;);</span>
+
+<span class="fc" id="L43">        gameOver = new Sounds(&quot;sounds/game/GAMEOVER.wav&quot;);</span>
+<span class="fc" id="L44">        victoryBgm = new Sounds(&quot;sounds/bgm/VICTORYBGM.wav&quot;);</span>
+<span class="fc" id="L45">    }</span>
+
+    public static SoundsController getInstance() {
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (soundsController == null) {</span>
+<span class="fc" id="L49">            soundsController = new SoundsController();</span>
+        }
+<span class="fc" id="L51">        return soundsController;</span>
+    }
+
+    public void play(SFX sfx) {
+<span class="pc bpc" id="L55" title="1 of 21 branches missed.">        switch (sfx) {</span>
+<span class="fc" id="L56">            case MENUBGM -&gt; menuBgm.loop(0.2f);</span>
+<span class="fc" id="L57">            case GAMEBGM -&gt; gameBgm.loop(0.15f);</span>
+<span class="fc" id="L58">            case CUSTOMIZEBGM -&gt; customizeBgm.loop(1f);</span>
+<span class="fc" id="L59">            case INSTRUCTIONSBGM -&gt; instructionsBgm.loop(0.5f);</span>
+<span class="fc" id="L60">            case SELECT -&gt; select.play(defaultVolume);</span>
+<span class="fc" id="L61">            case ENTER -&gt; enter.play(defaultVolume);</span>
+<span class="fc" id="L62">            case FLIPPAGE -&gt; flipPage.play(0.7f);</span>
+<span class="fc" id="L63">            case LEVELUP -&gt; levelUp.play(1f);</span>
+<span class="fc" id="L64">            case JOEPASS1 -&gt; joePass1.play(defaultVolume);</span>
+<span class="fc" id="L65">            case JOEPASS2 -&gt; joePass2.play(defaultVolume);</span>
+<span class="fc" id="L66">            case JOESTOP -&gt; joeStop.play(defaultVolume);</span>
+<span class="fc" id="L67">            case JOEHIT -&gt; joeHit.play(defaultVolume);</span>
+<span class="fc" id="L68">            case KIDWALK1 -&gt; kidWalk1.play(defaultVolume);</span>
+<span class="fc" id="L69">            case KIDSTOP1 -&gt; kidStop1.play(defaultVolume);</span>
+<span class="fc" id="L70">            case KIDSTOP2 -&gt; kidStop2.play(defaultVolume);</span>
+<span class="fc" id="L71">            case KIDHIT -&gt; kidHit.play(defaultVolume);</span>
+<span class="fc" id="L72">            case KIDSCORE -&gt; kidScore.play(0.8f);</span>
+<span class="fc" id="L73">            case CARBREAK -&gt; carBreak.play(defaultVolume);</span>
+<span class="fc" id="L74">            case GAMEOVER -&gt; gameOver.play(1f);</span>
+<span class="fc" id="L75">            case VICTORYBGM -&gt; victoryBgm.loop(1f);</span>
+        }
+<span class="fc" id="L77">    }</span>
+
+    public void pause(SFX sfx) {
+<span class="pc bpc" id="L80" title="1 of 3 branches missed.">        switch (sfx) {</span>
+<span class="fc" id="L81">            case GAMEBGM -&gt; gameBgm.pause();</span>
+<span class="fc" id="L82">            case VICTORYBGM -&gt; victoryBgm.pause();</span>
+            default -&gt; {}
+        }
+<span class="fc" id="L85">    }</span>
+
+    public void stop(SFX sfx) {
+<span class="pc bpc" id="L88" title="1 of 7 branches missed.">        switch(sfx) {</span>
+<span class="fc" id="L89">            case MENUBGM -&gt; menuBgm.stop();</span>
+<span class="fc" id="L90">            case GAMEBGM -&gt; gameBgm.stop();</span>
+<span class="fc" id="L91">            case CUSTOMIZEBGM -&gt; customizeBgm.stop();</span>
+<span class="fc" id="L92">            case INSTRUCTIONSBGM -&gt; instructionsBgm.stop();</span>
+<span class="fc" id="L93">            case CARBREAK -&gt; carBreak.stop();</span>
+<span class="fc" id="L94">            case VICTORYBGM -&gt; victoryBgm.stop();</span>
+            default -&gt; {}
+        }
+<span class="fc" id="L97">    }</span>
+
+    public static void playRandom(SFX sfx1, SFX sfx2) {
+<span class="fc" id="L100">        Random random = new Random();</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (random.nextBoolean()) {</span>
+<span class="fc" id="L102">            getInstance().play(sfx1);</span>
+        } else {
+<span class="nc" id="L104">            getInstance().play(sfx2);</span>
+        }
+<span class="fc" id="L106">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

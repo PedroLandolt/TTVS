@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RoadBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CrossingGuardJoe</a> &gt; <a href="index.source.html" class="el_package">com.CrossingGuardJoe.model.game</a> &gt; <span class="el_source">RoadBuilder.java</span></div><h1>RoadBuilder.java</h1><pre class="source lang-java linenums">package com.CrossingGuardJoe.model.game;
+
+import com.CrossingGuardJoe.model.game.elements.Car;
+import com.CrossingGuardJoe.model.game.elements.Joe;
+import com.CrossingGuardJoe.model.game.elements.Kid;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+<span class="fc" id="L11">public class RoadBuilder {</span>
+<span class="fc" id="L12">    private final Random rand = new Random();</span>
+    private static final int JOE_INITIAL_X = 390;
+    private static final int JOE_Y = 297;
+<span class="fc" id="L15">    private static final int[] ROAD_LANES = {85, 172, 259, 346};</span>
+    private static final int NUMBER_OF_CARS = 3;
+    private static final int DISTANCE_BETWEEN_CARS = 200;
+    private static final int RANDOM_BOUND = 500;
+    private static final int MAX_Y_DISTANCE = 500;
+    private static final int INITIAL_NUMBER_OF_KIDS = 3;
+    private static final int KID_SPAWN_X = 490;
+    private static final int INITIAL_POSITION = 430;
+    private static final int KID_Y = 330;
+    private static final int MIN_KID_DISTANCE = 9;
+
+    public Road createRoad() {
+<span class="fc" id="L27">        Road road = new Road();</span>
+
+<span class="fc" id="L29">        road.setJoe(createJoe());</span>
+<span class="fc" id="L30">        road.setKids(createKids());</span>
+<span class="fc" id="L31">        road.setCars(createCars());</span>
+
+<span class="fc" id="L33">        return road;</span>
+    }
+
+    private Joe createJoe() {
+<span class="fc" id="L37">        return new Joe(JOE_INITIAL_X, JOE_Y);</span>
+    }
+
+    private List&lt;Car&gt; createCars() {
+<span class="fc" id="L41">        List&lt;Car&gt; cars = new ArrayList&lt;&gt;();</span>
+
+        int randomY;
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        for (int i = 0; i &lt; NUMBER_OF_CARS; i++) {</span>
+            do {
+<span class="fc" id="L46">                randomY = -rand.nextInt(RANDOM_BOUND) - rand.nextInt(RANDOM_BOUND);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">            } while (AuxCarCheck.isAnyCarOverlapping(randomY, cars, DISTANCE_BETWEEN_CARS));</span>
+
+<span class="fc" id="L49">            Car car = new Car(ROAD_LANES[rand.nextInt(ROAD_LANES.length)], randomY);</span>
+<span class="fc" id="L50">            cars.add(car);</span>
+        }
+
+<span class="fc" id="L53">        new Thread(() -&gt; {</span>
+<span class="fc" id="L54">            Random rand = new Random();</span>
+
+            while (true) {
+<span class="fc" id="L57">                synchronized (cars) {</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">                    for (Car car : cars) {</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">                        if (car.getPosition().getY() &gt; MAX_Y_DISTANCE) {</span>
+                            int newRandomY;
+
+                            do {
+<span class="nc" id="L63">                                newRandomY = -rand.nextInt(RANDOM_BOUND) - rand.nextInt(RANDOM_BOUND);</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">                            } while (AuxCarCheck.isAnyCarOverlapping(newRandomY, cars, DISTANCE_BETWEEN_CARS));</span>
+
+<span class="nc" id="L66">                            car.getPosition().setY(newRandomY);</span>
+<span class="nc" id="L67">                            car.getPosition().setX(ROAD_LANES[rand.nextInt(ROAD_LANES.length)]);</span>
+                        }
+<span class="fc" id="L69">                    }</span>
+<span class="fc" id="L70">                }</span>
+
+                try {
+<span class="fc" id="L73">                    Thread.sleep(100);</span>
+<span class="nc" id="L74">                } catch (InterruptedException e) {</span>
+<span class="nc" id="L75">                    System.out.println(&quot;ERROR: &quot; + e.getMessage());</span>
+<span class="pc" id="L76">                }</span>
+            }
+<span class="fc" id="L78">        }).start();</span>
+
+<span class="fc" id="L80">        return cars;</span>
+    }
+
+    private List&lt;Kid&gt; createKids() {
+<span class="fc" id="L84">        return getKids(INITIAL_NUMBER_OF_KIDS);</span>
+    }
+
+    public List&lt;Kid&gt; createKidsNextLevel(int numberKids) {
+<span class="fc" id="L88">        return getKids(numberKids);</span>
+    }
+
+    private List&lt;Kid&gt; getKids(int numberKids) {
+<span class="fc" id="L92">        List&lt;Kid&gt; kids = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L93">        int x = KID_SPAWN_X;</span>
+
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        for (int i = 0; i &lt; numberKids; i++) {</span>
+<span class="fc" id="L96">            Kid kid = new Kid(x, KID_Y);</span>
+<span class="fc" id="L97">            kids.add(kid);</span>
+<span class="fc" id="L98">            kid.addMovesInQueueLeft((KID_SPAWN_X - INITIAL_POSITION)/3);</span>
+<span class="fc" id="L99">            x += MIN_KID_DISTANCE;</span>
+        }
+<span class="fc" id="L101">        return kids;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

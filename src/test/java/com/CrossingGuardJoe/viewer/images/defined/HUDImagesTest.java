@@ -1,0 +1,117 @@
+package com.CrossingGuardJoe.viewer.images.defined;
+
+import org.junit.jupiter.api.Test;
+import org.assertj.core.api.Assertions;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class HUDImagesTest {
+
+    @Test
+    void testGetHPImage() {
+        // Act
+        String[] actualHP = HUDImages.getHPImage();
+
+        // Assert - Check that the returned array is not null
+        assertNotNull(actualHP, "HP image array should not be null.");
+
+        // Assert - Check that the returned array has elements
+        assertTrue(actualHP.length > 0, "HP image array should not be empty.");
+
+        // Assert (size check) - Ensure the number of rows matches the expected value
+        assertEquals(27, actualHP.length, "HP image array should have 27 rows.");
+
+        // Assert (content integrity) - Verify some known content in the rows
+        Assertions.assertThat(actualHP).contains(
+                "      GGGGGGG       ",
+                "GGGGGGGGGGGGGGGGGGGG",
+                "      GGGGGGG   GGGG"
+        );
+
+        // Assert (cloning) - Ensure that the array is a copy, not a reference to a mutable object
+        String[] newHP = HUDImages.getHPImage();
+        newHP[0] = "MODIFIED";
+        assertNotEquals("MODIFIED", actualHP[0], "HP image should be immutable/cloned per method call.");
+    }
+
+    @Test
+    void testGetGameHudImage() {
+        // Act
+        String[] actualGameHud = HUDImages.getGameHudImage();
+
+        // Assert - Check that the returned array is not null
+        assertNotNull(actualGameHud, "Game HUD image array should not be null.");
+
+        // Assert - Check that it is not empty
+        assertTrue(actualGameHud.length > 0, "Game HUD image array should not be empty.");
+
+        // Assert (size check) - Ensure the number of rows matches expected value
+        assertEquals(38, actualGameHud.length, "Game HUD image array should have 38 rows.");
+
+        // Assert (content integrity) - Verify some known content in the rows
+        Assertions.assertThat(actualGameHud).contains(
+                "LLLLLLLLLLLLLL$WWW$$$$$$$WWWW$LLLL$WWWWWWWW$LL$WW$LLLLLLLL$WW$LLLLL$WW$LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLKKKKKKKKKKKKKKKKKKKK$qq$KKK$qqqqqqqqqqqqqqqq$KKK$qq$KKKKKKKKKKKKKKKKK$$WWW$$$$$$WWWW$KKKKKK$$$$$$KKKKKKKKKKK$$$$KKKKKKK$$KKK$$$$$$KKKKKKKK$$$$$$$$KKKKKKKKKKK$$KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "LLLLLLLLLLLLLL$WWW$LLLLLL$WWW$LLLLL$$$$$$WWW$L$WW$LLLLLLLL$WW$LLLLL$WW$LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLKKKKKKKKKKKKKKKKKKKK$qq$$$K$qqqqqqqqqqqqqqqq$K$$$qq$KKKKKKKKKKKKKKKKK$WWW$KKKKKK$WWW$KKKK$$WWWWWW$KKKKKKKK$$WWWW$$KKKK$WW$$$WWWWWW$KKKKKK$WWWWWWWW$KKKKKKKKK$WW$KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "LLLLLLLLLLLLLL$WWW$LLLLLL$WWW$LLLLLLLLLLL$WW$L$WW$LLLLLLLL$WW$LLLLLL$$LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLKKKKKKKKKKKKKKKKKKKK$$qqq$K$qqqqqqqqqqqqqqqq$K$qqq$$KKKKKKKKKKKKKKKKK$WWW$KKKKKKK$$$KKKK$WWWWWWWWW$KKKKKK$WWWWWWWW$KKK$WW$WWWWWWWWW$KKKK$WWWWWWWWWW$KKKKKKKK$WW$KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                );
+
+        // Assert (cloning) - Ensure immutability by cloning
+        String[] newGameHud = HUDImages.getGameHudImage();
+        newGameHud[0] = "CHANGED";
+        assertNotEquals("CHANGED", actualGameHud[0], "Game HUD image should be immutable/cloned per method call.");
+    }
+
+    @Test
+    void testGetScoreBarSliceImage() {
+        // Act
+        String[] actualScoreBarSlice = HUDImages.getScoreBarSliceImage();
+
+        // Assert - Check that the returned array is not null
+        assertNotNull(actualScoreBarSlice, "Score Bar Slice image array should not be null.");
+
+        // Assert - Check that it is not empty
+        assertTrue(actualScoreBarSlice.length > 0, "Score Bar Slice image array should not be empty.");
+
+        // Assert (size check) - Ensure the number of rows matches expected value
+        assertEquals(37, actualScoreBarSlice.length, "Score Bar Slice image array should have 40 rows.");
+
+        // Assert (content integrity) - Verify some known content in the rows
+        Assertions.assertThat(actualScoreBarSlice).contains(
+                "AAAAAAAAAAAAAAAAAAAA$qq$$$$$qqqqqqqqqqqqqqqq$$$$$qq$AAAAAAAAAAAAAAAAAAAA$$WWWWWW$$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "AAAAAAAAAAAAAAAAAAAA$qq$AAA$qqqqqqqqqqqqqqqq$AAA$qq$AAAAAAAAAAAAAAAAAAA$WWWWWWWWWW$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+                "AAAAAAAAAAAAAAAAAAAA$qq$AAA$qqqqqqqqqqqqqqqq$AAA$qq$AAAAAAAAAAAAAAAAAA$WWWWWWWWWWWW$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                );
+
+        // Assert (cloning) - Ensure immutability by cloning
+        String[] newScoreBarSlice = HUDImages.getScoreBarSliceImage();
+        newScoreBarSlice[0] = "ERROR";
+        assertNotEquals("ERROR", actualScoreBarSlice[0], "Score Bar image should be immutable/cloned per method call.");
+    }
+
+    @Test
+    void testGetHpBarSliceImage() {
+        // Act
+        String[] actualHpBarSlice = HUDImages.getHpBarSliceImage();
+
+        // Assert - Check that the returned array is not null
+        assertNotNull(actualHpBarSlice, "HP Bar Slice image array should not be null.");
+
+        // Assert - Check that it is not empty
+        assertTrue(actualHpBarSlice.length > 0, "HP Bar Slice image array should not be empty.");
+
+        // Assert (size check) - Ensure the number of rows matches expected value
+        assertEquals(37, actualHpBarSlice.length, "HP Bar Slice image array should have 38 rows.");
+
+        // Assert (content integrity) - Verify some known content in the rows
+        Assertions.assertThat(actualHpBarSlice).contains(
+                "AAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAA",
+                "AAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAA",
+                "AAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLAAAAAAAAAAAAAAAAAAAAAAAA"
+                );
+
+        // Assert (cloning) - Ensure immutability by cloning
+        String[] newHpBarSlice = HUDImages.getHpBarSliceImage();
+        newHpBarSlice[0] = "CHANGED";
+        assertNotEquals("CHANGED", actualHpBarSlice[0], "HP Bar image should be immutable/cloned per method call.");
+    }
+}
